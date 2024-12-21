@@ -1,0 +1,85 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.chat-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+.users, .messages {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    min-height: 100px;
+}
+
+input[type="text"], button {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    width: auto;
+    cursor: pointer;
+}
+
+.dark-theme {
+    background-color: #333;
+    color: #fff;
+}
+
+.dark-theme .chat-container {
+    background-color: #444;
+    color: #fff;
+}
+
+.dark-theme .users, .dark-theme .messages {
+    border-color: #555;
+}
+
+.dark-theme input[type="text"], .dark-theme button {
+    background-color: #555;
+    color: #fff;
+    border-color: #666;
+}
+
+.message img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.emoji-picker {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.emoji-picker.visible {
+    display: block;
+}
+
+.emoji-picker img {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    margin: 5px;
+}

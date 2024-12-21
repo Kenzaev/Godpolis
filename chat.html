@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Веб-Чат</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="chat-container">
+        <h1>Веб-Чат</h1>
+        <div class="users" id="users"></div>
+        <div class="messages" id="messages"></div>
+        <input type="text" id="usernameInput" placeholder="Ваше имя" />
+        <input type="text" id="messageInput" placeholder="Введите сообщение..." />
+        <input type="file" id="fileInput" style="display:none;" />
+        <button id="sendButton">Отправить</button>
+        <button id="emojiButton">😊</button>
+        <button id="themeButton">Сменить тему</button>
+        <button id="attachmentButton">📎</button>
+    </div>
+    <audio id="notificationSound" src="notification.mp3" preload="auto"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
