@@ -1,1 +1,1 @@
-octocatgfd.github.io
+octocatgfd.github.com
