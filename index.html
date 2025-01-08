@@ -1,25 +1,31 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Веб-Чат</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Подписка на Telegram-канал</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .subscribe-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #0088cc;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .subscribe-button:hover {
+            background-color: #005f99;
+        }
+    </style>
 </head>
 <body>
-    <div class="chat-container">
-        <h1>Веб-Чат</h1>
-        <div class="users" id="users"></div>
-        <div class="messages" id="messages"></div>
-        <input type="text" id="usernameInput" placeholder="Ваше имя" />
-        <input type="text" id="messageInput" placeholder="Введите сообщение..." />
-        <input type="file" id="fileInput" style="display:none;" />
-        <button id="sendButton">Отправить</button>
-        <button id="emojiButton">😊</button>
-        <button id="themeButton">Сменить тему</button>
-        <button id="attachmentButton">📎</button>
-    </div>
-    <audio id="notificationSound" src="notification.mp3" preload="auto"></audio>
-    <script src="script.js"></script>
+    <h1>Подпишитесь на наш Telegram-канал</h1>
+    <a href="https://t.me/+jav7eB_a5rc4NjZi" class="subscribe-button">Подписаться</a>
 </body>
 </html>
