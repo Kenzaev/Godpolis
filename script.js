@@ -1,117 +1,62 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const messagesContainer = document.getElementById('messages');
-    const usernameInput = document.getElementById('usernameInput');
-    const messageInput = document.getElementById('messageInput');
-    const fileInput = document.getElementById('fileInput');
-    const sendButton = document.getElementById('sendButton');
-    const emojiButton = document.getElementById('emojiButton');
-    const themeButton = document.getElementById('themeButton');
-    const attachmentButton = document.getElementById('attachmentButton');
-    const notificationSound = document.getElementById('notificationSound');
+// start: Sidebar
+document.querySelector('.chat-sidebar-profile-toggle').addEventListener('click', function(e) {
+    e.preventDefault()
+    this.parentElement.classList.toggle('active')
+})
 
-    let username = '';
-    let theme = 'light';
-    const badWords = ['плохое слово', 'еще одно плохое слово']; // Список нежелательных слов
+document.addEventListener('click', function(e) {
+    if(!e.target.matches('.chat-sidebar-profile, .chat-sidebar-profile *')) {
+        document.querySelector('.chat-sidebar-profile').classList.remove('active')
+    }
+})
+// end: Sidebar
 
-    usernameInput.addEventListener('input', (e) => {
-        username = e.target.value;
-    });
 
-    sendButton.addEventListener('click', () => {
-        const messageText = messageInput.value.trim();
-        if (messageText && username) {
-            const filteredMessage = filterBadWords(messageText);
-            addMessage(username, filteredMessage);
-            messageInput.value = '';
-            notificationSound.play();
-            saveChatHistory();
-        }
-    });
 
-    emojiButton.addEventListener('click', () => {
-        const emojiPicker = document.createElement('div');
-        emojiPicker.classList.add('emoji-picker');
-        const emojis = ['😊', '😂', '❤️', '👍', '😢', '😱', '😈', '🎉', '🎁', '🎂'];
-        emojis.forEach(emoji => {
-            const img = document.createElement('img');
-            img.src = `https://twemoji.maxcdn.com/v/latest/72x72/${emoji.codePointAt(0).toString(16)}.png`;
-            img.alt = emoji;
-            img.addEventListener('click', () => {
-                messageInput.value += emoji;
-                document.body.removeChild(emojiPicker);
-            });
-            emojiPicker.appendChild(img);
-        });
-        document.body.appendChild(emojiPicker);
-        emojiPicker.classList.add('visible');
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('.emoji-picker') && !e.target.closest('#emojiButton')) {
-            const emojiPicker = document.querySelector('.emoji-picker');
-            if (emojiPicker) {
-                document.body.removeChild(emojiPicker);
-            }
-        }
-    });
-
-    themeButton.addEventListener('click', () => {
-        theme = theme === 'light' ? 'dark' : 'light';
-        document.body.className = theme === 'dark' ? 'dark-theme' : '';
-    });
-
-    attachmentButton.addEventListener('click', () => {
-        fileInput.click();
-    });
-
-    fileInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                const imgElement = document.createElement('img');
-                imgElement.src = event.target.result;
-                addMessage(username, '', imgElement);
-                notificationSound.play();
-                saveChatHistory();
-            };
-            reader.readAsDataURL(file);
-        }
-    });
-
-    function addMessage(username, message, imgElement = null) {
-        const messageElement = document.createElement('div');
-        messageElement.classList.add('message');
-        const timestamp = new Date().toLocaleTimeString();
-        if (imgElement) {
-            messageElement.appendChild(imgElement);
+// start: Coversation
+document.querySelectorAll('.conversation-item-dropdown-toggle').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+        e.preventDefault()
+        if(this.parentElement.classList.contains('active')) {
+            this.parentElement.classList.remove('active')
         } else {
-            messageElement.innerHTML = `<strong>${username}</strong> [${timestamp}]: ${message}`;
+            document.querySelectorAll('.conversation-item-dropdown').forEach(function(i) {
+                i.classList.remove('active')
+            })
+            this.parentElement.classList.add('active')
         }
-        messagesContainer.appendChild(messageElement);
-        messagesContainer.scrollTop = messagesContainer.scrollHeight;
-    }
+    })
+})
 
-    function filterBadWords(message) {
-        let filteredMessage = message;
-        badWords.forEach(word => {
-            const regex = new RegExp(`\\b${word}\\b`, 'gi');
-            filteredMessage = filteredMessage.replace(regex, '*'.repeat(word.length));
-        });
-        return filteredMessage;
+document.addEventListener('click', function(e) {
+    if(!e.target.matches('.conversation-item-dropdown, .conversation-item-dropdown *')) {
+        document.querySelectorAll('.conversation-item-dropdown').forEach(function(i) {
+            i.classList.remove('active')
+        })
     }
+})
 
-    function saveChatHistory() {
-        const chatHistory = Array.from(messagesContainer.children).map(messageElement => messageElement.outerHTML).join('');
-        localStorage.setItem('chatHistory', chatHistory);
-    }
+document.querySelectorAll('.conversation-form-input').forEach(function(item) {
+    item.addEventListener('input', function() {
+        this.rows = this.value.split('\n').length
+    })
+})
 
-    function loadChatHistory() {
-        const chatHistory = localStorage.getItem('chatHistory');
-        if (chatHistory) {
-            messagesContainer.innerHTML = chatHistory;
-        }
-    }
+document.querySelectorAll('[data-conversation]').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+        e.preventDefault()
+        document.querySelectorAll('.conversation').forEach(function(i) {
+            i.classList.remove('active')
+        })
+        document.querySelector(this.dataset.conversation).classList.add('active')
+    })
+})
 
-    loadChatHistory();
-});
+document.querySelectorAll('.conversation-back').forEach(function(item) {
+    item.addEventListener('click', function(e) {
+        e.preventDefault()
+        this.closest('.conversation').classList.remove('active')
+        document.querySelector('.conversation-default').classList.add('active')
+    })
+})
+// end: Coversation
